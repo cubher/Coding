@@ -1,23 +1,34 @@
 import numpy as np
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
 import cv2
 
-img=cv2.imread('test_images/einstein_low.jpg')
-a=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
-#a=rgb2gray(img)
-c=255 / np.log(1 + np.max(a))
-#c=1.5
-log_a = c * (np.log(a + 1))
-log_a=np.array(log_a, dtype=np.uint8)
-#plt.imshow(cv2.cvtColor(img, cv2.COLOR_BGR2RGB))
+
+img = cv2.imread('child.jpg')
+gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+gray_float = gray.astype(np.float32)
+c = 255 / np.log(1 + np.max(gray_float))
+log_img = c * np.log(1 + gray_float)
+log_img = np.uint8(log_img)
+
+# Display Original Image
 plt.figure(1)
-plt.imshow(a, cmap='gray')
+plt.imshow(gray, cmap='gray')
+plt.title("Original Grayscale Image")
+plt.axis('off')
+
+# Histogram of Original Image
 plt.figure(2)
-plt.hist(a)
-plt.title("Histogram of original image")
+plt.hist(gray.ravel(), bins=256)
+plt.title("Histogram of Original Image")
+
+# Display Log Transformed Image
 plt.figure(3)
-plt.imshow(log_a, cmap='gray')
+plt.imshow(log_img, cmap='gray')
+plt.title("Log Transformed Image")
+plt.axis('off')
+
+# Histogram of Log Transformed Image
 plt.figure(4)
-plt.hist(log_a)
-plt.title("Histogram of log transformed image")
+plt.hist(log_img.ravel(), bins=256)
+plt.title("Histogram of Log Transformed Image")
+plt.show()

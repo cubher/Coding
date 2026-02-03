@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import cv2
 
-img = cv2.imread('test_images/girl.jpg')
+img = cv2.imread('peacock.jpg')
 
 def rgb2gray(rgb):
     r, g, b = rgb[:,:,0], rgb[:,:,1], rgb[:,:,2]
@@ -21,4 +21,5 @@ for gamma in [0.1, 0.5, 1.2, 2.2]:
     print('gamma_transformed '+str(gamma)+'.jpg')
     plt.figure()
     plt.imshow(gamma_corrected, cmap='gray')
-    plt.title("transformed image")
+    plt.title(f"Transformed image (Gamma={gamma})")
+plt.show()
